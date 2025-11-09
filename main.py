@@ -52,7 +52,7 @@ async def stop_bot(m: types.Message):
     active_groups[chat_id] = False
     await m.reply(".❌")
     
-@dp.message(lambda m: m.text and "2" in m.text)
+@dp.message(lambda m: m.text and " 2 " in m.text)
 async def reply_swear(msg: types.Message):
     await msg.reply("Посос")
 
