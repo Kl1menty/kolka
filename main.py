@@ -18,6 +18,7 @@ BAD_WORDS = [
     r'н+а+е+б+',  # наеб, наебка
     r'н+и+х+у+[еёя]+',
     r'п+о+х+у+[йеяю]+',
+    r'п+о+с+о+с+',
 ]
 
 if not API_TOKEN:
@@ -71,4 +72,5 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
