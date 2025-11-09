@@ -8,8 +8,7 @@ import re
 
 # === ЗАГРУЖАЕМ ПЕРЕМЕННЫЕ ИЗ .env ===
 load_dotenv()
-# API_TOKEN = os.getenv("BOT_TOKEN")
-API_TOKEN = "8188457717:AAEQ0CxmaFafGhceUXHJdeRInHOjUCzkUkc"
+API_TOKEN = os.getenv("BOT_TOKEN")
 active_groups = {}  # словарь для статуса бота в каждой группе
 Spisok_nahuy = ['Так блять', 'Сука нахуй', 'Так нахуй', 'Нихуево', 'Нихуево блять', 'Посос', 'Наебка', 'Ну а хули']
 BAD_WORDS = [
