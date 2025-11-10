@@ -6,16 +6,16 @@ from dotenv import load_dotenv
 import random as rd
 import re
 
-# === ЗАГРУЖАЕМ ПЕРЕМЕННЫЕ ИЗ .env ===
 load_dotenv()
 API_TOKEN = os.getenv("BOT_TOKEN")
 active_groups = {}  # словарь для статуса бота в каждой группе
-Spisok_nahuy = ['Так блять', 'Сука нахуй', 'Так нахуй', 'Нихуево', 'Нихуево блять', 'Посос', 'Наебка', 'Ну а хули', 'Так то похуй']
+Spisok_nahuy = ['Так блять', 'Сука нахуй', 'Так нахуй', 'Нихуево', 'Нихуево блять', 'Посос', 'Наебка', 'Ну а хули',
+                'Так то похуй']
 BAD_WORDS = [
-    r'б+л+я+',  # бля, бляяять
-    r'с+у+к+',  # сука, суууука
-    r'х+у+[йеяю]+',  # хуй, хуя, хуево
-    r'н+а+е+б+',  # наеб, наебка
+    r'б+л+я+',
+    r'с+у+к+',
+    r'х+у+[йеяю]+',
+    r'н+а+е+б+',
     r'н+и+х+у+[еёя]+',
     r'п+о+х+у+[йеяю]+',
     r'п+о+с+о+с+',
@@ -29,42 +29,42 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
 
 
-# === ОБРАБОТЧИКИ ===
-# @dp.message(Command("start"))
-# async def start_handler(message: types.Message):
-#     await message.answer("Привет! Я бот 🤖")
-#
-#
-# @dp.message(Command("help"))
-# async def help_handler(message: types.Message):
-#     await message.answer("Список команд:\n/start — запуск\n/help — помощь")
-
 @dp.message(Command("start"))
-async def start_bot(m: types.Message):
-    chat_id = m.chat.id
+async def start_bot(msg: types.Message):
+    chat_id = msg.chat.id
     active_groups[chat_id] = True
-    await m.reply(".✅")
+    await msg.reply("Опа нахуй✅")
 
 
 @dp.message(Command("stop"))
-async def stop_bot(m: types.Message):
-    chat_id = m.chat.id
+async def stop_bot(msg: types.Message):
+    chat_id = msg.chat.id
     active_groups[chat_id] = False
-    await m.reply(".❌")
-    
-@dp.message(lambda m: m.text and " 2 " in m.text)
+    await msg.reply("Эх бл...❌")
+
+
+@dp.message(lambda m: m.text and 'брат' in m.text)
+async def reply_swear(msg: types.Message):
+    await msg.reply("макана больше слушай")
+
+
+@dp.message(lambda m: m.text and '2' in m.text)
 async def reply_swear(msg: types.Message):
     await msg.reply("Посос")
 
+
+@dp.message(lambda m: m.text and m.text[-1] == '?')
+async def reply_swear(msg: types.Message):
+    await msg.reply("Айда!")
+
+
 @dp.message(lambda m: m.text and any(re.search(word, m.text.lower()) for word in BAD_WORDS))
 async def reply_swear(msg: types.Message):
-    # проверяем, включен ли бот для этой группы
     if not active_groups.get(msg.chat.id, True):
-        return  # бот отключен — ничего не делаем
+        return
     await msg.reply(rd.choice(Spisok_nahuy))
 
 
-# === ЗАПУСК ===
 async def main():
     print("Бот запущен...")
     await dp.start_polling(bot)
@@ -72,5 +72,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-
