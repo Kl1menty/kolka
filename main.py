@@ -33,14 +33,14 @@ dp = Dispatcher()
 async def start_bot(msg: types.Message):
     chat_id = msg.chat.id
     active_groups[chat_id] = True
-    await msg.reply("Опа нахуй✅")
+    await msg.reply("Ну погнали хули✅")
 
 
 @dp.message(Command("stop"))
 async def stop_bot(msg: types.Message):
     chat_id = msg.chat.id
     active_groups[chat_id] = False
-    await msg.reply("Эх бл...❌")
+    await msg.reply("Стоп нахуй❌")
 
 
 @dp.message(lambda m: m.text and 'брат' in m.text)
@@ -72,3 +72,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
