@@ -10,7 +10,7 @@ load_dotenv()
 API_TOKEN = os.getenv("BOT_TOKEN")
 active_groups = {}  # словарь для статуса бота в каждой группе
 Spisok_nahuy = ['Так блять', 'Сука нахуй', 'Так нахуй', 'Нихуево', 'Нихуево блять', 'Посос', 'Наебка', 'Ну а хули',
-                'Так то похуй']
+                'Так то похуй', 'газ братик', 'опа нахуй', 'похуй']
 BAD_WORDS = [
     r'б+л+я+',
     r'с+у+к+',
@@ -41,7 +41,10 @@ async def stop_bot(msg: types.Message):
     chat_id = msg.chat.id
     active_groups[chat_id] = False
     await msg.reply("Стоп нахуй❌")
-
+  
+@dp.message(lambda m: m.text and 'двоешник', m.text.lower())
+async def reply_swear(msg: types.Message):
+    await msg.reply("ААААААААААААААААААААА жалкий двоешник")
 
 @dp.message(lambda m: m.text and 'брат' in m.text)
 async def reply_swear(msg: types.Message):
@@ -72,4 +75,5 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
 
